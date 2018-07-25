@@ -1,0 +1,249 @@
+﻿@model Park
+@{
+    ViewData["Title"] = "ParkDetails";
+}
+<script src="~/js/site.js"></script>
+<script>
+    function loadWindow() {
+        if (readCookie("temp") == null) {
+            createCookie("temp", "fa");
+        }
+        getPreference();
+
+    }
+    window.onload = loadWindow;
+</script>
+<body class="body">
+    <div class="maindiv">
+        <h3 id="indie-flower" class="parkname" align="center">@Model.ParkName</h3>
+        <p align="center"><i>"@Model.InspirationalQuote"</i> -@Model.InspirationalQuoteSource</p>
+        <img src="~/images/parks/@(Model.ParkCode).jpg" class="parkimage" />
+
+        <p>@Model.ParkDescription</p>
+
+        <ul>
+            <li>Located In: @Model.State</li>
+            <li>Founded In: @Model.YearFounded</li>
+            <li>Climate: @Model.Climate</li>
+            <li>@Model.Acreage Acres in the Park</li>
+            <li>@Model.ElevationInFeet ft. Elevation</li>
+            <li>@Model.MilesOfTrail mi. of Trail</li>
+            <li>@Model.NumberOfCampsites Campsites</li>
+            <li>@Model.AnnualVisitorCount Visitors Each Year</li>
+            <li>@Model.NumberOfAnimalSpecies Species of Animal in the Park</li>
+            <br />
+
+            @if (Model.EntryFee != 0)
+            {
+                <li>@Model.EntryFee.ToString("C") Park Entry Fee</li>
+            }
+        </ul>
+        <div align="center">
+            <button type="button" id="preferencebutton" value="Change to Celsius" class="btn btn-success" style="color: black;" onclick="setPreference()">Change to Celcius</button>
+        </div>
+        <div class="forecastcontainer">
+            @foreach (var forecast in Model.Forecasts)
+            {
+                if (forecast.Day == 1)
+                {
+                    <div class="firstforecast">
+                        <h5 class="weatherday">Today</h5>
+                        <img src="~/images/weather/@(forecast.Forecast).gif" id="firstday" />
+                        <br />
+                        <p id="forecasttext">High: <label class="temperature">@(forecast.High)</label>&emsp;Low: <label class="temperature">@(forecast.Low)</label></p>
+                        @if (forecast.Forecast == "snow")
+                        {
+                            <p id="forecastwarning">Pack snowshoes</p>
+                        }
+                        @if (forecast.Forecast == "rain")
+                        {
+                            <p id="forecastwarning">Pack rain gear and wear waterproof shoes</p>
+                        }
+                        @if (forecast.Forecast == "thunderstorms")
+                        {
+                            <p id="forecastwarning">Seek shelter and avoid hiking on exposed ridges</p>
+                        }
+                        @if (forecast.Forecast == "sunny")
+                        {
+                            <p id="forecastwarning">Pack sunblock</p>
+                        }
+                        @if (forecast.High > 75)
+                        {
+                            <p id="forecastwarning">Bring an extra gallon of water</p>
+                        }
+                        @if (forecast.High - forecast.Low > 20)
+                        {
+                            <p id="forecastwarning">Wear breathable layers</p>
+                        }
+                        @if (forecast.Low < 20)
+                        {
+                            <p id="forecastwarning">Beware of exposure to frigid temperatures</p>
+                        }
+                    </div>
+
+                }
+                if (forecast.Day == 2)
+                {
+                    <div class="secondforecast">
+                        <h5 class="weatherday">@DateTime.Today.AddDays(1).DayOfWeek</h5>
+                        <img src="~/images/weather/@(forecast.Forecast).gif" id="restofweek" />
+                        <p id="forecasttext">High: <label class="temperature">@(forecast.High)</label></p>
+                        <p id="forecasttext">Low: <label class="temperature">@(forecast.Low)</label></p>
+                        @if (forecast.Forecast == "snow")
+                        {
+                            <p id="forecastwarning">Pack snowshoes</p>
+                        }
+                        @if (forecast.Forecast == "rain")
+                        {
+                            <p id="forecastwarning">Pack rain gear and wear waterproof shoes</p>
+                        }
+                        @if (forecast.Forecast == "thunderstorms")
+                        {
+                            <p id="forecastwarning">Seek shelter and avoid hiking on exposed ridges</p>
+                        }
+                        @if (forecast.Forecast == "sunny")
+                        {
+                            <p id="forecastwarning">Pack sunblock</p>
+                        }
+                        @if (forecast.High > 75)
+                        {
+                            <p id="forecastwarning">Bring an extra gallon of water</p>
+                        }
+                        @if (forecast.High - forecast.Low > 20)
+                        {
+                            <p id="forecastwarning">Wear breathable layers</p>
+                        }
+                        @if (forecast.Low < 20)
+                        {
+                            <p id="forecastwarning">Beware of exposure to frigid temperatures</p>
+                        }
+                    </div>
+
+                }
+                if (forecast.Day == 3)
+                {
+                    <div class="thirdforecast">
+                        <h5 class="weatherday">@DateTime.Today.AddDays(2).DayOfWeek</h5>
+                        <img src="~/images/weather/@(forecast.Forecast).gif" id="restofweek" />
+                        <p id="forecasttext">High: <label class="temperature">@(forecast.High)</label></p>
+                        <p id="forecasttext">Low: <label class="temperature">@(forecast.Low)</label></p>
+                        @if (forecast.Forecast == "snow")
+                        {
+                            <p id="forecastwarning">Pack snowshoes</p>
+                        }
+                        @if (forecast.Forecast == "rain")
+                        {
+                            <p id="forecastwarning">Pack rain gear and wear waterproof shoes</p>
+                        }
+                        @if (forecast.Forecast == "thunderstorms")
+                        {
+                            <p id="forecastwarning">Seek shelter and avoid hiking on exposed ridges</p>
+                        }
+                        @if (forecast.Forecast == "sunny")
+                        {
+                            <p id="forecastwarning">Pack sunblock</p>
+                        }
+                        @if (forecast.High > 75)
+                        {
+                            <p id="forecastwarning">Bring an extra gallon of water</p>
+                        }
+                        @if (forecast.High - forecast.Low > 20)
+                        {
+                            <p id="forecastwarning">Wear breathable layers</p>
+                        }
+                        @if (forecast.Low < 20)
+                        {
+                            <p id="forecastwarning">Beware of exposure to frigid temperatures</p>
+                        }
+                    </div>
+
+                }
+                if (forecast.Day == 4)
+                {
+                    <div class="fourthforecast">
+                        <h5 class="weatherday">@DateTime.Today.AddDays(3).DayOfWeek</h5>
+                        <img src="~/images/weather/@(forecast.Forecast).gif" id="restofweek" />
+                        <p id="forecasttext">High: <label class="temperature">@(forecast.High)</label></p>
+                        <p id="forecasttext">Low: <label class="temperature">@(forecast.Low)</label></p>
+                        @if (forecast.Forecast == "snow")
+                        {
+                            <p id="forecastwarning">Pack snowshoes</p>
+                        }
+                        @if (forecast.Forecast == "rain")
+                        {
+                            <p id="forecastwarning">Pack rain gear and wear waterproof shoes</p>
+                        }
+                        @if (forecast.Forecast == "thunderstorms")
+                        {
+                            <p id="forecastwarning">Seek shelter and avoid hiking on exposed ridges</p>
+                        }
+                        @if (forecast.Forecast == "sunny")
+                        {
+                            <p id="forecastwarning">Pack sunblock</p>
+                        }
+                        @if (forecast.High > 75)
+                        {
+                            <p id="forecastwarning">Bring an extra gallon of water</p>
+                        }
+                        @if (forecast.High - forecast.Low > 20)
+                        {
+                            <p id="forecastwarning">Wear breathable layers</p>
+                        }
+                        @if (forecast.Low < 20)
+                        {
+                            <p id="forecastwarning">Beware of exposure to frigid temperatures</p>
+                        }
+                    </div>
+
+                }
+                if (forecast.Day == 5)
+                {
+                    <div class="fifthforecast">
+                        <h5 class="weatherday">@DateTime.Today.AddDays(4).DayOfWeek</h5>
+                        <img src="~/images/weather/@(forecast.Forecast).gif" id="restofweek" />
+                        <p id="forecasttext">High: <label class="temperature">@(forecast.High)</label></p>
+                        <p id="forecasttext">Low: <label class="temperature">@(forecast.Low)</label></p>
+                        @if (forecast.Forecast == "snow")
+                        {
+                            <p id="forecastwarning">Pack snowshoes</p>
+                        }
+                        @if (forecast.Forecast == "rain")
+                        {
+                            <p id="forecastwarning">Pack rain gear and wear waterproof shoes</p>
+                        }
+                        @if (forecast.Forecast == "thunderstorms")
+                        {
+                            <p id="forecastwarning">Seek shelter and avoid hiking on exposed ridges</p>
+                        }
+                        @if (forecast.Forecast == "sunny")
+                        {
+                            <p id="forecastwarning">Pack sunblock</p>
+                        }
+                        @if (forecast.High > 75)
+                        {
+                            <p id="forecastwarning">Bring an extra gallon of water</p>
+                        }
+                        @if (forecast.High - forecast.Low > 20)
+                        {
+                            <p id="forecastwarning">Wear breathable layers</p>
+                        }
+                        @if (forecast.Low < 20)
+                        {
+                            <p id="forecastwarning">Beware of exposure to frigid temperatures</p>
+                        }
+                    </div>
+
+                }
+            }
+        </div>
+        <p style="margin-bottom: 30px; text-align: center;"><i>Credit to <a href="https://www.artstation.com/anthony-drozdov">Anton Drozdov</a> for animated weather icons:</i></p>
+        @if (Model.ParkCode == "ENP")
+        {
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m11!1m3!1d139987.21579624468!2d-80.89979416060196!3d25.286769115366145!2m2!1f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfe03e56762f3197!2sEverglades+National+Park!5e1!3m2!1sen!2sus!4v1532298271977" width="900" height="500" frameborder="0" style="border: groove; margin-bottom: 20px; margin-left: auto; margin-right: auto;" allowfullscreen></iframe>
+        }
+        else
+        {
+            <iframe src="https://maps.google.com/maps?q=@Model.ParkURL&t=k&z=17&ie=UTF8&iwloc=&output=embed" width="900" height="500" frameborder="0" style="border: groove; margin-bottom: 20px; margin-left: auto; margin-right: auto;" allowfullscreen></iframe>
+        }
+    </div>
+</body>
